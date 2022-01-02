@@ -1,0 +1,31 @@
+#  Template NodeJS build
+
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: node:16
+
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: Build and Test
+            caches:
+              - node
+            script:
+              - npm install --force
+              - npm test
+              - git archive --format=tar.gz master -o posts.tar.gz
+            artifacts:
+                - posts.tar.gz
+    - step:
+            name: Deploy to Production
+            deployment: production
+            caches: 
+              - pip
+            script:
+              - pipe: atlassian/heroku-deploy:1.2.1
+                variables:
+                  HEROKU_API_KEY: 679377ba-c3ef-4128-8449-f60b1faa4bd4
+                  HEROKU_APP_NAME: node-lapr-post
+                  ZIP_FILE: 'posts.tar.gz'
