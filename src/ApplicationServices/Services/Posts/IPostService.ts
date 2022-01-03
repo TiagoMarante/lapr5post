@@ -11,7 +11,7 @@ export default interface IPostService {
   createPost(postData: CreatePostDto): Promise<CreatePostDto>;
   updatePost(postId: string, postData: Posts);
   deletePost(postId: string);
-  createComment(postData: CreateCommentDto): Promise<CreateCommentDto>;
+  createComment(postData: CreateCommentDto);
 
   addLike(likeDto: AddLikeDto);
   addDislike(dislikeDto: AddDislikeDto);

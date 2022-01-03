@@ -34,11 +34,10 @@ class PostService implements IPostService {
     return result;
   }
 
-  async createComment(postData: CreateCommentDto): Promise<CreateCommentDto> {
+  async createComment(postData: CreateCommentDto){
     console.log(postData);
 
-    const comment = await this.postRepository.updateWithComment(postData);
-    return comment;
+    await this.postRepository.updateWithComment(postData);
   }
 
 

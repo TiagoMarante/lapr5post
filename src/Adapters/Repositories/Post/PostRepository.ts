@@ -59,15 +59,17 @@ class PostRepository implements IPostRepository {
     }
   }
 
-  async updateWithComment(postData: CreateCommentDto): Promise<CreateCommentDto> {
+  async updateWithComment(postData: CreateCommentDto){
     try {
-      const result = await PostsDB.findById(postData.id);
+      let result = await PostsDB.findById(postData.id);
+      console.log(result);
+      
 
       const comment = await CommentDB.create(postData);
-      comment.save();
+      await comment.save();
 
-      result.comments.push(comment);
-      result.save()
+      await result.comments.push(comment);
+      await result.save();
     } catch (error) {
       return null;
     }

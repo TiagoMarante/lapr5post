@@ -42,13 +42,12 @@ export class PostController {
   @OpenAPI({ summary: 'Update a Post' })
   async updatePost(@Body() postData: CreateCommentDto) {
 
-    const createPostData: CreateCommentDto = await this.postService.createComment(postData);
-
-    if (createPostData === null) {
-      throw { status: 500, message: 'There was an error' };
+    try {
+      await this.postService.createComment(postData);
+    return { message: 'Post comment added successfuly' };
+    } catch (error) {
+      throw { status: 500, errorMessage: error };
     }
-
-    return { data: toSwaggerList(createPostData), message: 'created' };
   }
 
   @Post('/posts')
