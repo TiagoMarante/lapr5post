@@ -4,17 +4,26 @@ import { CreateCommentDto } from '@/ApplicationServices/DTOs/swagger/create_comm
 import { CreatePostDto } from '@/ApplicationServices/DTOs/swagger/create_post.dto';
 import { IPosts } from '@/ApplicationServices/interfaces/Post/post.interface';
 import IPostRepository from '@/ApplicationServices/interfaces/Repository/IPostRepository.interface';
-import { injector } from '@/inversify.config';
-import Dislike from '@/Model/Posts/Dislike';
-import Like from '@/Model/Posts/Like';
-import Posts from '@/Model/Posts/Post';
-import { TYPES } from '@/types';
-import { injectable } from 'inversify';
+import Dislike from '../../../Model/Posts/Dislike';
+import Like from '../../../Model/Posts/Like';
+import Posts from '../../../Model/Posts/Post';
+import { TYPES } from '../../../types';
+import { inject, injectable } from 'inversify';
 import IPostService from './IPostService';
+
+import "reflect-metadata";
 
 @injectable()
 class PostService implements IPostService {
-  public postRepository = injector.get<IPostRepository>(TYPES.IPostRepository);
+
+  public constructor(
+    @inject(TYPES.IPostRepository) postRepository: IPostRepository
+  ){
+    this.postRepository = postRepository;
+  }
+
+
+  public postRepository;
 
 
   async findAllPosts(): Promise<IPosts[]> {

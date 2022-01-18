@@ -5,6 +5,7 @@ import IPostService from "./ApplicationServices/Services/Posts/IPostService";
 import PostService from "./ApplicationServices/Services/Posts/PostService";
 import IUserService from "./ApplicationServices/Services/User/IUserService";
 import UserService from "./ApplicationServices/Services/User/UserService";
+import "reflect-metadata";
 import { TYPES } from "./types";
 
 const injector = new Container();
