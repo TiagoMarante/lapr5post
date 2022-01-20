@@ -30,7 +30,7 @@ export class PostController {
   @OpenAPI({ summary: 'Return a list of likes/dislikes of all users' })
   async getLikesDislikes() {
     const findAllData: UserForPrologDto[] = await this.postService.findAllUsersLikesDislikes();
-    return toSwaggerList(findAllData);
+    return  { posts:toSwaggerList(findAllData)};
   }
 
   @Get('/posts/:id')
