@@ -12,6 +12,7 @@ import { inject, injectable } from 'inversify';
 import IPostService from './IPostService';
 
 import "reflect-metadata";
+import UserForPrologDto from '@/ApplicationServices/DTOs/normal/UsersForPrologDto';
 
 @injectable()
 class PostService implements IPostService {
@@ -29,6 +30,19 @@ class PostService implements IPostService {
   async findAllPosts(): Promise<IPosts[]> {
     const result = await this.postRepository.getAllPosts();
     return result;
+  }
+
+  async findAllUsersLikesDislikes(): Promise<UserForPrologDto[]> {
+    const result: IPosts[] = await this.postRepository.getAllPosts();
+    var userList: UserForPrologDto[] = [];
+
+    result.forEach((elems) => {
+      var user = new UserForPrologDto(elems.user, elems.likes.length, elems.dislikes.length);
+      userList.push(user);
+    })
+
+    
+    return userList;
   }
 
 

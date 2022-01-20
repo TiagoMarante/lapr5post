@@ -1,3 +1,4 @@
+import UserForPrologDto from '@/ApplicationServices/DTOs/normal/UsersForPrologDto';
 import AddDislikeDto from '@/ApplicationServices/DTOs/Post/AddDislikeDto';
 import AddLikeDto from '@/ApplicationServices/DTOs/Post/AddLikeDto';
 import { CommentDto } from '@/ApplicationServices/DTOs/swagger/comment.dto';
@@ -22,6 +23,14 @@ export class PostController {
   async getPosts() {
     const findAllPosts: IPosts[] = await this.postService.findAllPosts();
     return { data: toSwaggerList(findAllPosts), message: 'findAll' };
+  }
+
+  @Get('/prolog')
+  @HttpCode(200)
+  @OpenAPI({ summary: 'Return a list of likes/dislikes of all users' })
+  async getLikesDislikes() {
+    const findAllData: UserForPrologDto[] = await this.postService.findAllUsersLikesDislikes();
+    return toSwaggerList(findAllData);
   }
 
   @Get('/posts/:id')

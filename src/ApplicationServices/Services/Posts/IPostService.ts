@@ -1,3 +1,4 @@
+import UserForPrologDto from '@/ApplicationServices/DTOs/normal/UsersForPrologDto';
 import AddDislikeDto from '@/ApplicationServices/DTOs/Post/AddDislikeDto';
 import AddLikeDto from '@/ApplicationServices/DTOs/Post/AddLikeDto';
 import { CreateCommentDto } from '@/ApplicationServices/DTOs/swagger/create_comment';
@@ -18,4 +19,6 @@ export default interface IPostService {
 
   removeLike(likeId: string);
   removeDislike(dislikeId: string);
+
+  findAllUsersLikesDislikes(): Promise<UserForPrologDto[]>
 }

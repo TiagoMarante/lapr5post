@@ -18,17 +18,16 @@ export default class MockDb implements IPostRepository {
         postData.tags.forEach((elems) => tagsMock.push(new Tag(elems)));
 
         this.postMock.push(new Posts(parseInt(postData.user), tagsMock , new Text(postData.text)));
-
-        
-
         return;
         
     }
+
     
     updateWithComment(postData: CreateCommentDto): Promise<CreateCommentDto> {
         throw new Error("Method not implemented.");
     }
 
+    
     async getAllPosts(): Promise<IPosts[]> {
         let arrP : IPosts[] = [];
 
